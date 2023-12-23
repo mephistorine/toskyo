@@ -1,0 +1,6 @@
+{
+  "*.{js,ts,html,css,json,yml}": [
+    "pnpm run format",
+    "pnpm run lint:fix"
+  ]
+}

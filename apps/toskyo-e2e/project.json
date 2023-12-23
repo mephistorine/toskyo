@@ -6,21 +6,15 @@
   "targets": {
     "e2e": {
       "executor": "@nx/playwright:playwright",
-      "outputs": [
-        "{workspaceRoot}/dist/.playwright/apps/toskyo-e2e"
-      ],
+      "outputs": ["{workspaceRoot}/dist/.playwright/apps/toskyo-e2e"],
       "options": {
         "config": "apps/toskyo-e2e/playwright.config.ts"
       }
     },
     "lint": {
       "executor": "@nx/eslint:lint",
-      "outputs": [
-        "{options.outputFile}"
-      ]
+      "outputs": ["{options.outputFile}"]
     }
   },
-  "implicitDependencies": [
-    "toskyo"
-  ]
+  "implicitDependencies": ["toskyo"]
 }

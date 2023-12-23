@@ -1,14 +1,31 @@
-import {Component} from "@angular/core"
+import {AsyncPipe} from "@angular/common"
+import {ChangeDetectionStrategy, Component} from "@angular/core"
+import {ReactiveFormsModule} from "@angular/forms"
 import {RouterModule} from "@angular/router"
-import {NxWelcomeComponent} from "./nx-welcome.component"
+import {RxPush} from "@rx-angular/template/push"
+import {
+  TUI_SANITIZER,
+  TuiAlertModule,
+  TuiDialogModule,
+  TuiRootModule
+} from "@taiga-ui/core"
+import {NgDompurifySanitizer} from "@tinkoff/ng-dompurify"
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: "toskyo-root",
+  imports: [
+    RouterModule,
+    ReactiveFormsModule,
+    AsyncPipe,
+    RxPush,
+    TuiRootModule,
+    TuiDialogModule,
+    TuiAlertModule
+  ],
+  selector: "tsk-root",
   templateUrl: "./app.component.html",
   styleUrl: "./app.component.css",
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{provide: TUI_SANITIZER, useClass: NgDompurifySanitizer}]
 })
-export class AppComponent {
-  title = "toskyo"
-}
+export class AppComponent {}

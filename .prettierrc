@@ -1,3 +1,50 @@
 {
-  "singleQuote": true
+  "singleQuote": false,
+  "semi": false,
+  "proseWrap": "always",
+  "singleAttributePerLine": true,
+  "tabWidth": 2,
+  "useTabs": false,
+  "trailingComma": "none",
+  "bracketSpacing": false,
+  "arrowParens": "always",
+  "plugins": ["prettier-plugin-organize-attributes"],
+  "overrides": [
+    {
+      "files": ["*.html"],
+      "options": {
+        "parser": "angular",
+        "printWidth": 120,
+        "attributeGroups": [
+          "$ANGULAR_ELEMENT_REF",
+          "$ID",
+          "$DEFAULT",
+          "$CLASS",
+          "$ANGULAR_ANIMATION",
+          "$ANGULAR_ANIMATION_INPUT",
+          "$ANGULAR_INPUT",
+          "$ANGULAR_TWO_WAY_BINDING",
+          "$ANGULAR_OUTPUT"
+        ],
+        "attributeSort": "ASC"
+      }
+    },
+    {
+      "files": ["*.ts"],
+      "options": {
+        "attributeGroups": [
+          "$ANGULAR_ELEMENT_REF",
+          "$ID",
+          "$DEFAULT",
+          "$CLASS",
+          "$ANGULAR_ANIMATION",
+          "$ANGULAR_ANIMATION_INPUT",
+          "$ANGULAR_INPUT",
+          "$ANGULAR_TWO_WAY_BINDING",
+          "$ANGULAR_OUTPUT"
+        ],
+        "attributeSort": "ASC"
+      }
+    }
+  ]
 }
