@@ -3,6 +3,7 @@ import {ChangeDetectionStrategy, Component} from "@angular/core"
 import {ReactiveFormsModule} from "@angular/forms"
 import {RouterModule} from "@angular/router"
 import {RxPush} from "@rx-angular/template/push"
+import {TuiTabBarModule} from "@taiga-ui/addon-mobile"
 import {
   TUI_SANITIZER,
   TuiAlertModule,
@@ -20,7 +21,8 @@ import {NgDompurifySanitizer} from "@tinkoff/ng-dompurify"
     RxPush,
     TuiRootModule,
     TuiDialogModule,
-    TuiAlertModule
+    TuiAlertModule,
+    TuiTabBarModule
   ],
   selector: "tsk-root",
   templateUrl: "./app.component.html",

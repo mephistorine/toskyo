@@ -60,7 +60,8 @@
     },
     "@nx/angular:component": {
       "style": "css",
-      "changeDetection": "OnPush"
+      "changeDetection": "OnPush",
+      "standalone": true
     }
   },
   "nxCloudAccessToken": "ZmE4OTQyMmYtZGJiOS00MGJkLWI0NGYtNjcxNGZhZjhjZDU2fHJlYWQtd3JpdGU="

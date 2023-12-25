@@ -1,3 +1,30 @@
 <tui-root>
   <router-outlet></router-outlet>
+
+  <nav
+    tuiTabBar
+    class="nav-bar"
+  >
+    <a
+      icon="tuiIconCheckSquare"
+      routerLink="/tasks"
+      routerLinkActive="is-active"
+      tuiTabBarItem
+      >Tasks</a
+    >
+    <a
+      icon="tuiIconCalendar"
+      routerLink="/events"
+      routerLinkActive="is-active"
+      tuiTabBarItem
+      >Events</a
+    >
+    <a
+      icon="tuiIconUser"
+      routerLink="/profile"
+      routerLinkActive="is-active"
+      tuiTabBarItem
+      >Profile</a
+    >
+  </nav>
 </tui-root>

@@ -1,6 +1,6 @@
 {
   "*.{js,ts,html,css,json,yml}": [
-    "nx format:write",
-    "eslint --fix"
-  ]
+    "nx format:write"
+  ],
+  "*.{js,ts}": ["eslint --fix"]
 }
