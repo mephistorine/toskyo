@@ -3,9 +3,14 @@ import {ApplicationConfig, importProvidersFrom, isDevMode} from "@angular/core"
 import {provideAnimations} from "@angular/platform-browser/animations"
 import {provideRouter} from "@angular/router"
 import {provideServiceWorker} from "@angular/service-worker"
-import {TuiRootModule, TuiSvgModule} from "@taiga-ui/core"
+import {TuiAlertModule, TuiRootModule, TuiSvgModule} from "@taiga-ui/core"
+import PocketBaseClient from "pocketbase"
 
 import {appRoutes} from "./app.routes"
+
+function pocketBaseClientFactory() {
+  return new PocketBaseClient("http://localhost:8090")
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +22,11 @@ export const appConfig: ApplicationConfig = {
     }),
     importProvidersFrom(TuiRootModule),
     importProvidersFrom(TuiSvgModule),
-    provideHttpClient()
+    importProvidersFrom(TuiAlertModule),
+    provideHttpClient(),
+    {
+      provide: PocketBaseClient,
+      useFactory: pocketBaseClientFactory
+    }
   ]
 }

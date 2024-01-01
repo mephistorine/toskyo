@@ -1,0 +1,5 @@
+.nav-bar {
+  position: fixed;
+  inset-block-end: 0;
+  width: 100%;
+}

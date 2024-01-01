@@ -1,30 +1,36 @@
-<tui-root>
+@if (isDarkTheme()) {
+  <tui-theme-night />
+}
+
+<tui-root [tuiMode]="isDarkTheme() ? 'onDark' : 'onLight'">
   <router-outlet></router-outlet>
 
-  <nav
-    tuiTabBar
-    class="nav-bar"
-  >
-    <a
-      icon="tuiIconCheckSquare"
-      routerLink="/tasks"
-      routerLinkActive="is-active"
-      tuiTabBarItem
-      >Tasks</a
+  @if (tabBarEnabled()) {
+    <nav
+      tuiTabBar
+      class="nav-bar"
     >
-    <a
-      icon="tuiIconCalendar"
-      routerLink="/events"
-      routerLinkActive="is-active"
-      tuiTabBarItem
-      >Events</a
-    >
-    <a
-      icon="tuiIconUser"
-      routerLink="/profile"
-      routerLinkActive="is-active"
-      tuiTabBarItem
-      >Profile</a
-    >
-  </nav>
+      <a
+        icon="tuiIconCheckSquare"
+        routerLink="/tasks"
+        routerLinkActive="is-active"
+        tuiTabBarItem
+        >Tasks</a
+      >
+      <a
+        icon="tuiIconCalendar"
+        routerLink="/events"
+        routerLinkActive="is-active"
+        tuiTabBarItem
+        >Events</a
+      >
+      <a
+        icon="tuiIconUser"
+        routerLink="/profile"
+        routerLinkActive="is-active"
+        tuiTabBarItem
+        >Profile</a
+      >
+    </nav>
+  }
 </tui-root>

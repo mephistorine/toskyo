@@ -8,6 +8,8 @@
 - Списки (Проекты)
 - Метка
 
+## Схема данных
+
 ```typescript
 // Схема базы данных
 
@@ -23,15 +25,21 @@ type BaseEventEntity = {
   isRecurring: boolean
 }
 
-type TaskEntity = {
+type TaskEntity = BaseEventEntity & {
   parentId: string | null
   isCompleted: boolean
   dueDate: string
 }
 
-type EventEntity = {
+type EventEntity = BaseEventEntity & {
   startDate: string
   endDate: string | null
   allDay: boolean
 }
 ```
+
+## Функциональность
+
+- Создавать/Редактировать/Удалять задачи
+- Создавать/Редактировать/Удалять события
+- Отображение задач и событий

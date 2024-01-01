@@ -1,1 +1,19 @@
-<p>ProfilePage works!</p>
+<h1>Profile</h1>
+
+<button
+  size="m"
+  tuiButton
+  type="button"
+  (click)="onClickLogout()"
+>
+  Logout
+</button>
+
+<div class="theme-toggle-container">
+  <label for="theme-toggle">Dark theme</label>
+  <tui-toggle
+    nativeId="theme-toggle"
+    size="l"
+    [showIcons]="true"
+  ></tui-toggle>
+</div>

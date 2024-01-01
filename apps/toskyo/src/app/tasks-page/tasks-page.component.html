@@ -1,18 +1,5 @@
 <h1>Tasks</h1>
 
-<ng-container *rxLet="episodes; let p; suspense: loading">
-  <div class="task-list">
-    @for (episode of p; track episode.id) {
-      <tui-checkbox-block
-        contentAlign="left"
-        size="l"
-      >
-        <span>{{ episode.name }}</span>
-      </tui-checkbox-block>
-    }
-  </div>
-</ng-container>
-
-<ng-template #loading>
-  <tui-loader />
-</ng-template>
+<div>
+  <div></div>
+</div>

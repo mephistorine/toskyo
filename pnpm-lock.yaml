@@ -56,6 +56,9 @@ dependencies:
   "@rx-angular/template":
     specifier: 17.0.0
     version: 17.0.0(@angular-devkit/core@17.0.7)(@angular-devkit/schematics@17.0.7)(@angular/core@17.0.7)(@rx-angular/cdk@17.0.0)(rxjs@7.8.1)
+  "@sweet-monads/maybe":
+    specifier: 3.3.1
+    version: 3.3.1
   "@taiga-ui/addon-mobile":
     specifier: ^3.60.0
     version: 3.60.0(@angular/cdk@17.0.4)(@angular/common@17.0.7)(@angular/core@17.0.7)(@ng-web-apis/common@3.0.6)(@taiga-ui/cdk@3.60.0)(@taiga-ui/core@3.60.0)(@taiga-ui/kit@3.60.0)(@tinkoff/ng-polymorpheus@4.3.0)(rxjs@7.8.1)
@@ -80,6 +83,12 @@ dependencies:
   "@tinkoff/ng-event-plugins":
     specifier: 3.1.0
     version: 3.1.0(@angular/core@17.0.7)(@angular/platform-browser@17.0.7)(rxjs@7.8.1)
+  "@tinkoff/utils":
+    specifier: 2.6.2
+    version: 2.6.2
+  pocketbase:
+    specifier: 0.20.1
+    version: 0.20.1
   rxjs:
     specifier: ~7.8.0
     version: 7.8.1
@@ -5769,6 +5778,22 @@ packages:
         integrity: sha512-myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==
       }
 
+  /@sweet-monads/interfaces@3.3.0:
+    resolution:
+      {
+        integrity: sha512-66akGvjPD4lizQy+w4JSltJilc2w/QPdw8lPAniLJGHwyjmrw9xMJLx76Q/GDnbCU59Werses4aZJLWOlJrL5A==
+      }
+    dev: false
+
+  /@sweet-monads/maybe@3.3.1:
+    resolution:
+      {
+        integrity: sha512-aWBg4Uxsw60GEQUByx9nlZ+jhEmQUug6wfDsTNFFH2fRPx3YwwDJAljqYdw3LzYQfAF3a1cyN5VFWDujPPDFpw==
+      }
+    dependencies:
+      "@sweet-monads/interfaces": 3.3.0
+    dev: false
+
   /@taiga-ui/addon-mobile@3.60.0(@angular/cdk@17.0.4)(@angular/common@17.0.7)(@angular/core@17.0.7)(@ng-web-apis/common@3.0.6)(@taiga-ui/cdk@3.60.0)(@taiga-ui/core@3.60.0)(@taiga-ui/kit@3.60.0)(@tinkoff/ng-polymorpheus@4.3.0)(rxjs@7.8.1):
     resolution:
       {
@@ -5991,6 +6016,18 @@ packages:
       "@angular/core": 17.0.7(rxjs@7.8.1)(zone.js@0.14.2)
       "@angular/platform-browser": 17.0.7(@angular/animations@17.0.7)(@angular/common@17.0.7)(@angular/core@17.0.7)
       tslib: 2.6.2
+    dev: false
+
+  /@tinkoff/utils@2.6.2:
+    resolution:
+      {
+        integrity: sha512-WUbc/2/6k0m4iTYIon0ttwfOsnINB3oWZLnmfSEP9DisVvtQVUIFGwkgoLvP2W5qiJxy/iltAlJD9OEAJfqSAA==
+      }
+    peerDependencies:
+      react-is: "*"
+    peerDependenciesMeta:
+      react-is:
+        optional: true
     dev: false
 
   /@tootallnate/once@2.0.0:
@@ -13804,6 +13841,13 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /pocketbase@0.20.1:
+    resolution:
+      {
+        integrity: sha512-Gl51UBc1U03JlwmwMkUIa1OHbcTmmdhyMPV1aJyHp9HuY5VUlh0t4hcx6D1fdhYsJcoh3kc6mpwhTBfXDoyn8w==
+      }
+    dev: false
 
   /portfinder@1.0.32:
     resolution:

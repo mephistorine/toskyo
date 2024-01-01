@@ -1,0 +1,10 @@
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+.theme-toggle-container {
+  display: flex;
+  gap: 1rem;
+  font: var(--tui-font-text-m);
+}

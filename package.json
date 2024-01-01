@@ -31,6 +31,7 @@
     "@nx/angular": "v17.2.5",
     "@rx-angular/state": "17.0.0",
     "@rx-angular/template": "17.0.0",
+    "@sweet-monads/maybe": "3.3.1",
     "@taiga-ui/addon-mobile": "^3.60.0",
     "@taiga-ui/cdk": "^3.60.0",
     "@taiga-ui/core": "^3.60.0",
@@ -39,6 +40,8 @@
     "@taiga-ui/styles": "^3.60.0",
     "@tinkoff/ng-dompurify": "4.0.0",
     "@tinkoff/ng-event-plugins": "3.1.0",
+    "@tinkoff/utils": "2.6.2",
+    "pocketbase": "0.20.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.0"

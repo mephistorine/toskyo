@@ -1,11 +1,12 @@
 import {CommonModule} from "@angular/common"
-import {HttpClient} from "@angular/common/http"
-import {ChangeDetectionStrategy, Component} from "@angular/core"
+import {ChangeDetectionStrategy, Component, inject} from "@angular/core"
+import {FormsModule} from "@angular/forms"
+import {rxState} from "@rx-angular/state"
 import {RxLet} from "@rx-angular/template/let"
 import {TuiAppBarModule} from "@taiga-ui/addon-mobile"
-import {TuiLoaderModule} from "@taiga-ui/core"
-import {TuiCheckboxBlockModule} from "@taiga-ui/kit"
-import {map} from "rxjs"
+import {TuiButtonModule, TuiLoaderModule} from "@taiga-ui/core"
+import {TuiCheckboxBlockModule, TuiCheckboxLabeledModule} from "@taiga-ui/kit"
+import PocketBaseClient from "pocketbase"
 
 @Component({
   selector: "tsk-tasks-page",
@@ -15,22 +16,23 @@ import {map} from "rxjs"
     TuiAppBarModule,
     TuiCheckboxBlockModule,
     TuiLoaderModule,
-    RxLet
+    RxLet,
+    TuiButtonModule,
+    TuiCheckboxLabeledModule,
+    FormsModule
   ],
   templateUrl: "./tasks-page.component.html",
   styleUrl: "./tasks-page.component.css",
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TasksPageComponent {
-  constructor(private httpClient: HttpClient) {}
+  private pocketBaseClient = inject(PocketBaseClient)
 
-  protected episodes = this.httpClient
-    .get<{results: Record<string, unknown>[]}>(
-      "https://rickandmortyapi.com/api/episode"
-    )
-    .pipe(
-      map((response) => {
-        return response.results
-      })
-    )
+  protected tasksPageStore = rxState(({set}) => {
+    set([])
+  })
+
+  constructor() {
+    this.pocketBaseClient.collection("events").getFullList().then(console.debug)
+  }
 }
