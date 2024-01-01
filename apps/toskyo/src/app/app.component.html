@@ -8,29 +8,35 @@
   @if (tabBarEnabled()) {
     <nav
       tuiTabBar
-      class="nav-bar"
-    >
+      class="nav-bar">
       <a
         icon="tuiIconCheckSquare"
         routerLink="/tasks"
         routerLinkActive="is-active"
-        tuiTabBarItem
-        >Tasks</a
-      >
+        tuiTabBarItem>
+        Tasks
+      </a>
       <a
         icon="tuiIconCalendar"
         routerLink="/events"
         routerLinkActive="is-active"
-        tuiTabBarItem
-        >Events</a
-      >
+        tuiTabBarItem>
+        Events
+      </a>
+      <a
+        icon="tuiIconSearch"
+        routerLink="/search"
+        routerLinkActive="is-active"
+        tuiTabBarItem>
+        Search
+      </a>
       <a
         icon="tuiIconUser"
         routerLink="/profile"
         routerLinkActive="is-active"
-        tuiTabBarItem
-        >Profile</a
-      >
+        tuiTabBarItem>
+        Profile
+      </a>
     </nav>
   }
 </tui-root>

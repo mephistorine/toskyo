@@ -26,7 +26,8 @@
           "$ANGULAR_TWO_WAY_BINDING",
           "$ANGULAR_OUTPUT"
         ],
-        "attributeSort": "ASC"
+        "attributeSort": "ASC",
+        "bracketSameLine": true
       }
     },
     {

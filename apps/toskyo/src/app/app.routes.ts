@@ -5,6 +5,7 @@ import {EventsPageComponent} from "./events-page/events-page.component"
 import {LoginPageComponent} from "./login-page/login-page.component"
 import {ProfilePageComponent} from "./profile-page/profile-page.component"
 import {RegisterPageComponent} from "./register-page/register-page.component"
+import {SearchPageComponent} from "./search-page/search-page.component"
 import {TasksPageComponent} from "./tasks-page/tasks-page.component"
 
 export const appRoutes: Route[] = [
@@ -38,6 +39,11 @@ export const appRoutes: Route[] = [
     data: {
       tabBarEnabled: false
     }
+  },
+  {
+    path: AppRoutes.Search,
+    component: SearchPageComponent,
+    title: "Search"
   },
   {
     path: "",

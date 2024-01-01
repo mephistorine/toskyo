@@ -5,22 +5,19 @@
 <form
   name="auth-form"
   [formGroup]="form"
-  (submit.prevent)="onFormSubmit()"
->
+  (submit.prevent)="onFormSubmit()">
   <div class="tui-form__row">
     <tui-input formControlName="username">
       Username
       <input
         name="username"
         tuiTextfield
-        type="text"
-      />
+        type="text" />
     </tui-input>
 
     <tui-error
       formControlName="username"
-      [error]="[] | tuiFieldError | push"
-    />
+      [error]="[] | tuiFieldError | push" />
   </div>
 
   <div class="tui-form__row">
@@ -29,14 +26,12 @@
       <input
         name="email"
         tuiTextfield
-        type="email"
-      />
+        type="email" />
     </tui-input>
 
     <tui-error
       formControlName="email"
-      [error]="[] | tuiFieldError | push"
-    />
+      [error]="[] | tuiFieldError | push" />
   </div>
 
   <div class="tui-form__row">
@@ -45,14 +40,12 @@
       <input
         name="password"
         tuiTextfield
-        type="password"
-      />
+        type="password" />
     </tui-input-password>
 
     <tui-error
       formControlName="password"
-      [error]="[] | tuiFieldError | push"
-    />
+      [error]="[] | tuiFieldError | push" />
   </div>
 
   <div class="tui-form__row">
@@ -61,22 +54,19 @@
       <input
         name="password-confirm"
         tuiTextfield
-        type="password"
-      />
+        type="password" />
     </tui-input-password>
 
     <tui-error
       formControlName="passwordConfirm"
-      [error]="[] | tuiFieldError | push"
-    />
+      [error]="[] | tuiFieldError | push" />
   </div>
 
   <div class="tui-form__row">
     <button
       tuiButton
       type="submit"
-      class="submit-button"
-    >
+      class="submit-button">
       Submit
     </button>
   </div>

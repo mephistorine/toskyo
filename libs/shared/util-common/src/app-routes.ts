@@ -3,5 +3,6 @@ export const enum AppRoutes {
   Events = "events",
   Profile = "profile",
   Login = "login",
-  Register = "register"
+  Register = "register",
+  Search = "search"
 }

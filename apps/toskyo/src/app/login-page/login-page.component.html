@@ -5,22 +5,19 @@
 <form
   name="auth-form"
   [formGroup]="form"
-  (submit.prevent)="onFormSubmit()"
->
+  (submit.prevent)="onFormSubmit()">
   <div class="tui-form__row">
     <tui-input formControlName="username">
       Username
       <input
         name="username"
         tuiTextfield
-        type="text"
-      />
+        type="text" />
     </tui-input>
 
     <tui-error
       formControlName="username"
-      [error]="[] | tuiFieldError | push"
-    />
+      [error]="[] | tuiFieldError | push" />
   </div>
 
   <div class="tui-form__row">
@@ -29,14 +26,12 @@
       <input
         name="password"
         tuiTextfield
-        type="password"
-      />
+        type="password" />
     </tui-input-password>
 
     <tui-error
       formControlName="password"
-      [error]="[] | tuiFieldError | push"
-    />
+      [error]="[] | tuiFieldError | push" />
   </div>
 
   <div class="tui-form__row">
@@ -44,8 +39,7 @@
       tuiButton
       type="submit"
       class="submit-button"
-      [showLoader]="loginIsProcessing()"
-    >
+      [showLoader]="loginIsProcessing()">
       Submit
     </button>
   </div>
