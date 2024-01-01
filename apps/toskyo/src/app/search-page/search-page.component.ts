@@ -1,6 +1,10 @@
 import {ChangeDetectionStrategy, Component} from "@angular/core"
 import {CommonModule} from "@angular/common"
 
+/**
+ * @deprecated
+ */
+
 @Component({
   selector: "tsk-search-page",
   standalone: true,

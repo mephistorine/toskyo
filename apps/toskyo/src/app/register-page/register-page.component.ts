@@ -15,6 +15,10 @@ import {
   TuiInputPasswordModule
 } from "@taiga-ui/kit"
 
+/**
+ * @deprecated
+ */
+
 @Component({
   selector: "tsk-register-page",
   standalone: true,

@@ -5,6 +5,10 @@ import {TuiButtonModule} from "@taiga-ui/core"
 import {TuiToggleModule} from "@taiga-ui/kit"
 import PocketBaseClient from "pocketbase"
 
+/**
+ * @deprecated
+ */
+
 @Component({
   selector: "tsk-profile-page",
   standalone: true,

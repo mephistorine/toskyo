@@ -1,10 +1,11 @@
 import {provideHttpClient} from "@angular/common/http"
 import {ApplicationConfig, importProvidersFrom, isDevMode} from "@angular/core"
 import {provideAnimations} from "@angular/platform-browser/animations"
-import {provideRouter} from "@angular/router"
+import {provideRouter, TitleStrategy} from "@angular/router"
 import {provideServiceWorker} from "@angular/service-worker"
 import {TuiAlertModule, TuiRootModule, TuiSvgModule} from "@taiga-ui/core"
 import PocketBaseClient from "pocketbase"
+import {ToskyoTitleStrategy} from "shared/util-navigation"
 
 import {appRoutes} from "./app.routes"
 
@@ -27,6 +28,10 @@ export const appConfig: ApplicationConfig = {
     {
       provide: PocketBaseClient,
       useFactory: pocketBaseClientFactory
+    },
+    {
+      provide: TitleStrategy,
+      useClass: ToskyoTitleStrategy
     }
   ]
 }

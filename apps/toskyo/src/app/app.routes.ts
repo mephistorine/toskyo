@@ -1,17 +1,17 @@
 import {Route} from "@angular/router"
-import {AppRoutes} from "shared/util-common"
+import {AppRoutes} from "shared/util-navigation"
+import {TaskPageComponent} from "task/feature-page"
 
 import {EventsPageComponent} from "./events-page/events-page.component"
 import {LoginPageComponent} from "./login-page/login-page.component"
 import {ProfilePageComponent} from "./profile-page/profile-page.component"
 import {RegisterPageComponent} from "./register-page/register-page.component"
 import {SearchPageComponent} from "./search-page/search-page.component"
-import {TasksPageComponent} from "./tasks-page/tasks-page.component"
 
 export const appRoutes: Route[] = [
   {
     path: AppRoutes.Tasks,
-    component: TasksPageComponent,
+    component: TaskPageComponent,
     title: "Tasks"
   },
   {

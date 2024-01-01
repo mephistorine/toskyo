@@ -8,16 +8,18 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
+    "target": "ES2022",
     "module": "esnext",
-    "lib": ["es2020", "dom"],
+    "lib": ["es2022", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
       "auth/domain": ["libs/auth/domain/src/index.ts"],
       "shared/util-common": ["libs/shared/util-common/src/index.ts"],
-      "task/domain": ["libs/task/domain/src/index.ts"]
+      "shared/util-navigation": ["libs/shared/util-navigation/src/index.ts"],
+      "task/domain": ["libs/task/domain/src/index.ts"],
+      "task/feature-page": ["libs/task/feature-page/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

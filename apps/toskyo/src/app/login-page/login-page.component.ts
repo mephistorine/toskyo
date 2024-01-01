@@ -17,6 +17,10 @@ type LoginPageForm = {
   password: string
 }
 
+/**
+ * @deprecated
+ */
+
 @Component({
   selector: "tsk-login-page",
   standalone: true,
