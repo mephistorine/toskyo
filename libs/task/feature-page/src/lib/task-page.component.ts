@@ -8,7 +8,16 @@ import {TuiSheetDialogService, TuiTouchableModule} from "@taiga-ui/addon-mobile"
 import {PolymorpheusComponent} from "@tinkoff/ng-polymorpheus"
 import {produce} from "immer"
 import PocketBaseClient from "pocketbase"
-import {catchError, EMPTY, from, map, Observable, of, switchMap} from "rxjs"
+import {
+  catchError,
+  EMPTY,
+  finalize,
+  from,
+  map,
+  Observable,
+  of,
+  switchMap
+} from "rxjs"
 import {Task} from "task/domain"
 import {TaskCardDialogComponent} from "task/feature-card-dialog"
 import {TaskCardComponent} from "task/ui-card"
@@ -114,12 +123,20 @@ export class TaskPageComponent implements OnInit {
 
           const task = state.tasks.find((t) => t.id === state.openedTaskId)
 
-          return this.sheetDialogService.open(
-            new PolymorpheusComponent(TaskCardDialogComponent),
-            {
+          return this.sheetDialogService
+            .open(new PolymorpheusComponent(TaskCardDialogComponent), {
               data: task
-            }
-          )
+            })
+            .pipe(
+              finalize(() => {
+                this.router.navigate([], {
+                  relativeTo: this.activatedRoute,
+                  queryParams: {
+                    [OPENED_TASK_ID_PARAM_KEY]: null
+                  }
+                })
+              })
+            )
         })
       )
     )
