@@ -20,13 +20,13 @@ type BaseEventEntity = {
   title: string
   content: string
   tags: string[]
-  creatorId: string
-  assigneeId: string
+  creatorUserId: string
+  assigneeUserId: string
   isRecurring: boolean
 }
 
 type TaskEntity = BaseEventEntity & {
-  parentId: string | null
+  parentTaskId: string | null
   isCompleted: boolean
   dueDate: string
 }

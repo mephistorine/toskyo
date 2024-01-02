@@ -19,7 +19,11 @@
       "shared/util-common": ["libs/shared/util-common/src/index.ts"],
       "shared/util-navigation": ["libs/shared/util-navigation/src/index.ts"],
       "task/domain": ["libs/task/domain/src/index.ts"],
-      "task/feature-page": ["libs/task/feature-page/src/index.ts"]
+      "task/feature-card-dialog": [
+        "libs/task/feature-card-dialog/src/index.ts"
+      ],
+      "task/feature-page": ["libs/task/feature-page/src/index.ts"],
+      "task/ui-card": ["libs/task/ui-card/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

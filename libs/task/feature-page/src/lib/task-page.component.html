@@ -1,3 +1,10 @@
 <h1>Tasks</h1>
 
-<div></div>
+<div class="task-list">
+  @for (task of tasks | push; track task.id) {
+    <task-card
+      tuiTouchable="background"
+      [task]="task"
+      (clickContent)="onTaskContentClick(task)" />
+  }
+</div>

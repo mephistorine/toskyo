@@ -56,6 +56,9 @@ dependencies:
   "@rx-angular/template":
     specifier: 17.0.0
     version: 17.0.0(@angular-devkit/core@17.0.7)(@angular-devkit/schematics@17.0.7)(@angular/core@17.0.7)(@rx-angular/cdk@17.0.0)(rxjs@7.8.1)
+  "@sweet-monads/either":
+    specifier: 3.3.1
+    version: 3.3.1
   "@sweet-monads/maybe":
     specifier: 3.3.1
     version: 3.3.1
@@ -83,9 +86,15 @@ dependencies:
   "@tinkoff/ng-event-plugins":
     specifier: 3.1.0
     version: 3.1.0(@angular/core@17.0.7)(@angular/platform-browser@17.0.7)(rxjs@7.8.1)
+  "@tinkoff/ng-polymorpheus":
+    specifier: 4.3.0
+    version: 4.3.0(@angular/core@17.0.7)(@angular/platform-browser@17.0.7)
   "@tinkoff/utils":
     specifier: 2.6.2
     version: 2.6.2
+  immer:
+    specifier: 10.0.3
+    version: 10.0.3
   pocketbase:
     specifier: 0.20.1
     version: 0.20.1
@@ -5778,6 +5787,15 @@ packages:
         integrity: sha512-myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==
       }
 
+  /@sweet-monads/either@3.3.1:
+    resolution:
+      {
+        integrity: sha512-9Yi6KITRWJ1dIiO2XD5HTa3P2KSYIuZBMOHNqpDetpFTjwe5WJJqjCIIc0Bw1mkTfAbqhLhDov6BGK8MEGrLXQ==
+      }
+    dependencies:
+      "@sweet-monads/interfaces": 3.3.0
+    dev: false
+
   /@sweet-monads/interfaces@3.3.0:
     resolution:
       {
@@ -10894,6 +10912,13 @@ packages:
     hasBin: true
     requiresBuild: true
     optional: true
+
+  /immer@10.0.3:
+    resolution:
+      {
+        integrity: sha512-pwupu3eWfouuaowscykeckFmVTpqbzW+rXFCX8rQLkZzM9ftBmU/++Ra+o+L27mz03zJTlyV4UUr+fdKNffo4A==
+      }
+    dev: false
 
   /immutable@3.8.2:
     resolution:

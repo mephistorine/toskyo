@@ -1,0 +1,17 @@
+<div>
+  <tui-checkbox
+    size="l"
+    [ngModel]="task.isCompleted" />
+</div>
+
+<div
+  class="task-info"
+  (click)="clickContent.emit($event)">
+  <span class="title">{{ task.title }}</span>
+
+  @if (task.content.length > 0) {
+    <span class="description">{{ task.content }}</span>
+  }
+
+  <span class="due-date">{{ task.dueDate | date }}</span>
+</div>

@@ -1,16 +1,23 @@
+import {DATE_PIPE_DEFAULT_OPTIONS, DatePipeConfig} from "@angular/common"
 import {provideHttpClient} from "@angular/common/http"
 import {ApplicationConfig, importProvidersFrom, isDevMode} from "@angular/core"
 import {provideAnimations} from "@angular/platform-browser/animations"
 import {provideRouter, TitleStrategy} from "@angular/router"
 import {provideServiceWorker} from "@angular/service-worker"
-import {TuiAlertModule, TuiRootModule, TuiSvgModule} from "@taiga-ui/core"
+import {TuiSafeHtml} from "@taiga-ui/cdk"
+import {
+  TuiAlertModule,
+  TuiRootModule,
+  TuiSvgModule,
+  tuiSvgSrcInterceptors
+} from "@taiga-ui/core"
 import PocketBaseClient from "pocketbase"
 import {ToskyoTitleStrategy} from "shared/util-navigation"
 
 import {appRoutes} from "./app.routes"
 
 function pocketBaseClientFactory() {
-  return new PocketBaseClient("http://localhost:8090")
+  return new PocketBaseClient("http://0.0.0.0:8090")
 }
 
 export const appConfig: ApplicationConfig = {
@@ -32,6 +39,17 @@ export const appConfig: ApplicationConfig = {
     {
       provide: TitleStrategy,
       useClass: ToskyoTitleStrategy
-    }
+    },
+    {
+      provide: DATE_PIPE_DEFAULT_OPTIONS,
+      useValue: {
+        dateFormat: "d MMM yyyy"
+      } as DatePipeConfig
+    },
+    tuiSvgSrcInterceptors((src: TuiSafeHtml) => {
+      return String(src).startsWith("ph::")
+        ? `https://api.iconify.design/ph:${String(src).replace("ph::", "")}.svg`
+        : src
+    })
   ]
 }

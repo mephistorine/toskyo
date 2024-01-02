@@ -53,7 +53,8 @@
                 "onlyDependOnLibsWithTags": [
                   "type:ui",
                   "type:domain-logic",
-                  "type:util"
+                  "type:util",
+                  "type:feature"
                 ]
               },
               {

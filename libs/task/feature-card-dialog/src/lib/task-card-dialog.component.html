@@ -1,0 +1,35 @@
+<header class="header">
+  <tui-checkbox
+    size="l"
+    [ngModel]="context.data.isCompleted" />
+
+  <h3 class="title">{{ context.data.title }}</h3>
+
+  <div class="dialog-actions">
+    <button
+      appearance="icon"
+      icon="tuiIconMoreHorizontal"
+      size="s"
+      tuiIconButton
+      type="button"></button>
+
+    <button
+      appearance="icon"
+      icon="tuiIconClose"
+      size="s"
+      tuiIconButton
+      type="button"
+      (click)="context.completeWith(undefined)"></button>
+  </div>
+</header>
+
+<div class="task-actions">
+  <button class="task-action-button due-date-button">
+    <tui-svg src="ph::calendar-blank-light" />
+    <span>{{ context.data.dueDate | date }}</span>
+  </button>
+</div>
+
+<div>
+  {{ context.data.content }}
+</div>

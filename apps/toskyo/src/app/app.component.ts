@@ -5,7 +5,7 @@ import {ReactiveFormsModule} from "@angular/forms"
 import {ActivationEnd, Event, Router, RouterModule} from "@angular/router"
 import {WINDOW} from "@ng-web-apis/common"
 import {RxPush} from "@rx-angular/template/push"
-import {TuiTabBarModule} from "@taiga-ui/addon-mobile"
+import {TuiSheetDialogModule, TuiTabBarModule} from "@taiga-ui/addon-mobile"
 import {
   TUI_SANITIZER,
   TuiAlertModule,
@@ -38,7 +38,8 @@ const DEFAULT_ROUTE_DATA: TskRouteData = {
     TuiAlertModule,
     TuiTabBarModule,
     TuiModeModule,
-    TuiThemeNightModule
+    TuiThemeNightModule,
+    TuiSheetDialogModule
   ],
   selector: "tsk-root",
   templateUrl: "./app.component.html",

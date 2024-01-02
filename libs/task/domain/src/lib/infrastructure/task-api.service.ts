@@ -4,6 +4,6 @@ import {Injectable} from "@angular/core"
 @Injectable({
   providedIn: "root"
 })
-export class TaskDataService {
+export class TaskApiService {
   constructor(private httpClient: HttpClient) {}
 }
