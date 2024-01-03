@@ -4,7 +4,9 @@
   @for (task of tasks | push; track task.id) {
     <task-card
       tuiTouchable="background"
+      @taskLeave
       [task]="task"
-      (clickContent)="onTaskContentClick(task)" />
+      (clickCheckbox)="onTaskCheckoutClick(task)"
+      (clickContent)="onTaskContentClick(task.id)" />
   }
 </div>

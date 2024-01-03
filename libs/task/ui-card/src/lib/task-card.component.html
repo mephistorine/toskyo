@@ -1,12 +1,13 @@
 <div>
-  <tui-checkbox
+  <tui-primitive-checkbox
     size="l"
-    [ngModel]="task.isCompleted" />
+    [value]="task.isCompleted"
+    (click)="onCheckboxClick()" />
 </div>
 
 <div
   class="task-info"
-  (click)="clickContent.emit($event)">
+  (click)="clickContent.emit()">
   <span class="title">{{ task.title }}</span>
 
   @if (task.content.length > 0) {

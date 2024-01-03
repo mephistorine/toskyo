@@ -29,6 +29,7 @@
     "@ng-web-apis/common": "3.0.6",
     "@ng-web-apis/intersection-observer": "3.2.0",
     "@nx/angular": "v17.2.5",
+    "@rx-angular/cdk": "17.0.0",
     "@rx-angular/state": "17.0.0",
     "@rx-angular/template": "17.0.0",
     "@sweet-monads/either": "3.3.1",

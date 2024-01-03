@@ -1,3 +1,4 @@
+import {animate, style, transition, trigger} from "@angular/animations"
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core"
 import {ActivatedRoute, Router} from "@angular/router"
 import {rxState} from "@rx-angular/state"
@@ -36,7 +37,22 @@ type TaskPageComponentState = {
   templateUrl: "./task-page.component.html",
   styleUrls: ["./task-page.component.css"],
   imports: [TaskCardComponent, TuiTouchableModule, RxPush],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger("taskLeave", [
+      transition(
+        ":leave",
+        [
+          style({transform: "translateX(0)"}),
+          animate(
+            "300ms 300ms ease-in-out",
+            style({transform: "translateX(-100%)"})
+          )
+        ],
+        {params: {duration: 300}}
+      )
+    ])
+  ]
 })
 export class TaskPageComponent implements OnInit {
   private effects = rxEffects()
@@ -50,7 +66,7 @@ export class TaskPageComponent implements OnInit {
     state.connect(
       from(
         this.pocketBaseClient.collection("events").getFullList({
-          filter: "type = 'TASK' && attributes.isCompleted = false",
+          filter: "type = 'TASK'",
           sort: "-created",
           fields: [
             "id",
@@ -95,7 +111,9 @@ export class TaskPageComponent implements OnInit {
     )
   })
 
-  protected tasks: Observable<Task[]> = this.state.select("tasks")
+  protected tasks: Observable<Task[]> = this.state
+    .select("tasks")
+    .pipe(map((tasks) => tasks.filter((t) => !t.isCompleted)))
 
   constructor(
     private pocketBaseClient: PocketBaseClient,
@@ -142,12 +160,62 @@ export class TaskPageComponent implements OnInit {
     )
   }
 
-  public onTaskContentClick(task: Task): void {
+  public onTaskContentClick(id: string): void {
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
       queryParams: {
-        [OPENED_TASK_ID_PARAM_KEY]: task.id
+        [OPENED_TASK_ID_PARAM_KEY]: id
       }
     })
+  }
+
+  public onTaskCheckoutClick(task: Task): void {
+    this.state.set((state) => {
+      return produce(state, (draft) => {
+        const t = draft.tasks.find((t) => t.id === task.id)
+        if (t) {
+          t.isCompleted = true
+        }
+      })
+    })
+
+    /*this.pocketBaseClient.collection("events").update(
+      task.id,
+      {
+        attributes: {
+          dueDate: task.dueDate,
+          parentTaskId: task.parentTaskId,
+          isCompleted: true
+        }
+      },
+      {
+        fields: [
+          "id",
+          "created",
+          "updated",
+          "title",
+          "content",
+          "tags",
+          "creatorUserId",
+          "assigneeUserId",
+          "isRecurring",
+          "attributes"
+        ].join(",")
+      }
+    ).then((newTask) => {
+      const {attributes, ...other} = newTask
+      return {
+        ...attributes,
+        ...other
+      }
+    })
+      .then((newTask: Task) => {
+        this.state.set((state) => {
+          return produce(state, (draft) => {
+            const i = draft.tasks.findIndex(t => t.id === newTask.id)
+            draft.tasks[i] = newTask
+          })
+        })
+      })*/
   }
 }
