@@ -1,24 +1,23 @@
 import {animate, style, transition, trigger} from "@angular/animations"
 import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core"
 import {ActivatedRoute, Router} from "@angular/router"
-import {rxState} from "@rx-angular/state"
 import {rxEffects} from "@rx-angular/state/effects"
+import {selectSlice} from "@rx-angular/state/selections"
 import {RxPush} from "@rx-angular/template/push"
+import {fromNullable} from "@sweet-monads/maybe"
 import {TuiSheetDialogService, TuiTouchableModule} from "@taiga-ui/addon-mobile"
 import {PolymorpheusComponent} from "@tinkoff/ng-polymorpheus"
-import {produce} from "immer"
-import {EMPTY, finalize, map, Observable, switchMap} from "rxjs"
+import isEmpty from "@tinkoff/utils/is/empty"
+import objOf from "@tinkoff/utils/object/objOf"
+import {EMPTY, finalize, map, Observable, switchMap, withLatestFrom} from "rxjs"
 import {Task, TaskApiService, TaskService} from "task/domain"
 import {TaskCardDialogComponent} from "task/feature-card-dialog"
 import {TaskCardComponent} from "task/ui-card"
 
-const OPENED_TASK_ID_PARAM_KEY = "opened-task-id"
-
-type TaskPageComponentState = {
-  loadingStatus: "pending" | "success" | "fail"
-  tasks: Task[]
-  openedTaskId: string | null
-}
+import {
+  OPENED_TASK_ID_PARAM_KEY,
+  TaskPageComponentStore
+} from "./task-page.component.store"
 
 @Component({
   standalone: true,
@@ -41,27 +40,14 @@ type TaskPageComponentState = {
         {params: {duration: 300}}
       )
     ])
-  ]
+  ],
+  providers: [TaskPageComponentStore]
 })
 export class TaskPageComponent implements OnInit {
   private effects = rxEffects()
-  private state = rxState<TaskPageComponentState>((state) => {
-    state.set({
-      loadingStatus: "pending",
-      tasks: [],
-      openedTaskId: null
-    })
 
-    state.connect(
-      "openedTaskId",
-      this.activatedRoute.queryParamMap.pipe(
-        map((param) => param.get(OPENED_TASK_ID_PARAM_KEY))
-      )
-    )
-  })
-
-  protected tasks: Observable<Task[]> = this.state
-    .select("tasks")
+  protected tasks: Observable<Task[]> = this.taskService
+    .selectAll()
     .pipe(map((tasks) => tasks.filter((t) => !t.isCompleted)))
 
   constructor(
@@ -69,9 +55,11 @@ export class TaskPageComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private taskService: TaskService,
-    private taskApiService: TaskApiService
+    private taskApiService: TaskApiService,
+    private taskPageComponentStore: TaskPageComponentStore
   ) {
-    this.state.$.subscribe(console.debug)
+    this.taskPageComponentStore.select().subscribe(console.log)
+    this.taskService.selectAll().subscribe(console.log)
   }
 
   public ngOnInit(): void {
@@ -82,35 +70,33 @@ export class TaskPageComponent implements OnInit {
       }
 
       this.taskService.insertMany(result.unwrap())
+      this.taskPageComponentStore.set({loadingStatus: "success"})
     })
 
     this.effects.register(
-      this.state.$.pipe(
-        switchMap((state) => {
-          if (
-            state.loadingStatus === "pending" ||
-            state.loadingStatus === "fail"
-          ) {
+      this.taskPageComponentStore.$.pipe(
+        selectSlice(["openedTaskId", "loadingStatus"]),
+        withLatestFrom(this.taskService.selectEntities()),
+        switchMap(([{loadingStatus, openedTaskId}, taskById]) => {
+          if (loadingStatus === "pending" || loadingStatus === "fail") {
             return EMPTY
           }
 
-          if (state.tasks.length <= 0 || state.openedTaskId === null) {
+          if (isEmpty(taskById) || openedTaskId === null) {
             return EMPTY
           }
 
-          const task = state.tasks.find((t) => t.id === state.openedTaskId)
+          const task = fromNullable(taskById[openedTaskId])
 
           return this.sheetDialogService
             .open(new PolymorpheusComponent(TaskCardDialogComponent), {
-              data: task
+              data: task.unwrap()
             })
             .pipe(
               finalize(() => {
                 this.router.navigate([], {
                   relativeTo: this.activatedRoute,
-                  queryParams: {
-                    [OPENED_TASK_ID_PARAM_KEY]: null
-                  }
+                  queryParams: objOf(OPENED_TASK_ID_PARAM_KEY, null)
                 })
               })
             )
@@ -122,59 +108,16 @@ export class TaskPageComponent implements OnInit {
   public onTaskContentClick(id: string): void {
     this.router.navigate([], {
       relativeTo: this.activatedRoute,
-      queryParams: {
-        [OPENED_TASK_ID_PARAM_KEY]: id
-      }
+      queryParams: objOf(OPENED_TASK_ID_PARAM_KEY, id)
     })
   }
 
   public onTaskCheckoutClick(task: Task): void {
-    this.state.set((state) => {
-      return produce(state, (draft) => {
-        const t = draft.tasks.find((t) => t.id === task.id)
-        if (t) {
-          t.isCompleted = true
-        }
-      })
-    })
-
-    /*this.pocketBaseClient.collection("events").update(
-      task.id,
-      {
-        attributes: {
-          dueDate: task.dueDate,
-          parentTaskId: task.parentTaskId,
-          isCompleted: true
-        }
-      },
-      {
-        fields: [
-          "id",
-          "created",
-          "updated",
-          "title",
-          "content",
-          "tags",
-          "creatorUserId",
-          "assigneeUserId",
-          "isRecurring",
-          "attributes"
-        ].join(",")
-      }
-    ).then((newTask) => {
-      const {attributes, ...other} = newTask
-      return {
-        ...attributes,
-        ...other
+    this.taskService.patch({
+      id: task.id,
+      changes: {
+        isCompleted: true
       }
     })
-      .then((newTask: Task) => {
-        this.state.set((state) => {
-          return produce(state, (draft) => {
-            const i = draft.tasks.findIndex(t => t.id === newTask.id)
-            draft.tasks[i] = newTask
-          })
-        })
-      })*/
   }
 }

@@ -16,7 +16,7 @@ import {ToskyoTitleStrategy} from "shared/util-navigation"
 import {appRoutes} from "./app.routes"
 
 function pocketBaseClientFactory() {
-  return new PocketBaseClient("http://0.0.0.0:8090")
+  return new PocketBaseClient("http://localhost:8090")
 }
 
 export const appConfig: ApplicationConfig = {
