@@ -18,6 +18,7 @@
       "auth/domain": ["libs/auth/domain/src/index.ts"],
       "shared/util-common": ["libs/shared/util-common/src/index.ts"],
       "shared/util-navigation": ["libs/shared/util-navigation/src/index.ts"],
+      "shared/util-state": ["libs/shared/util-state/src/index.ts"],
       "task/domain": ["libs/task/domain/src/index.ts"],
       "task/feature-card-dialog": [
         "libs/task/feature-card-dialog/src/index.ts"

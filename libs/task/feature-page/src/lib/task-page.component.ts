@@ -4,22 +4,11 @@ import {ActivatedRoute, Router} from "@angular/router"
 import {rxState} from "@rx-angular/state"
 import {rxEffects} from "@rx-angular/state/effects"
 import {RxPush} from "@rx-angular/template/push"
-import {left, right} from "@sweet-monads/either"
 import {TuiSheetDialogService, TuiTouchableModule} from "@taiga-ui/addon-mobile"
 import {PolymorpheusComponent} from "@tinkoff/ng-polymorpheus"
 import {produce} from "immer"
-import PocketBaseClient from "pocketbase"
-import {
-  catchError,
-  EMPTY,
-  finalize,
-  from,
-  map,
-  Observable,
-  of,
-  switchMap
-} from "rxjs"
-import {Task} from "task/domain"
+import {EMPTY, finalize, map, Observable, switchMap} from "rxjs"
+import {Task, TaskApiService, TaskService} from "task/domain"
 import {TaskCardDialogComponent} from "task/feature-card-dialog"
 import {TaskCardComponent} from "task/ui-card"
 
@@ -64,46 +53,6 @@ export class TaskPageComponent implements OnInit {
     })
 
     state.connect(
-      from(
-        this.pocketBaseClient.collection("events").getFullList({
-          filter: "type = 'TASK'",
-          sort: "-created",
-          fields: [
-            "id",
-            "created",
-            "updated",
-            "title",
-            "content",
-            "tags",
-            "creatorUserId",
-            "assigneeUserId",
-            "isRecurring",
-            "attributes"
-          ].join(",")
-        })
-      ).pipe(
-        map((tasks) => right(tasks)),
-        catchError((error) => of(left(error)))
-      ),
-      (prevState, tasks) => {
-        return produce(prevState, (draft) => {
-          if (tasks.isLeft()) {
-            draft.loadingStatus = "fail"
-          } else {
-            draft.tasks = tasks.unwrap().map((task) => {
-              const {attributes, ...other} = task
-              return {
-                ...attributes,
-                ...other
-              }
-            })
-            draft.loadingStatus = "success"
-          }
-        })
-      }
-    )
-
-    state.connect(
       "openedTaskId",
       this.activatedRoute.queryParamMap.pipe(
         map((param) => param.get(OPENED_TASK_ID_PARAM_KEY))
@@ -116,15 +65,25 @@ export class TaskPageComponent implements OnInit {
     .pipe(map((tasks) => tasks.filter((t) => !t.isCompleted)))
 
   constructor(
-    private pocketBaseClient: PocketBaseClient,
     private sheetDialogService: TuiSheetDialogService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private taskService: TaskService,
+    private taskApiService: TaskApiService
   ) {
     this.state.$.subscribe(console.debug)
   }
 
   public ngOnInit(): void {
+    this.effects.register(this.taskApiService.getFullList(), (result) => {
+      if (result.isLeft()) {
+        console.error(result.unwrap())
+        return
+      }
+
+      this.taskService.insertMany(result.unwrap())
+    })
+
     this.effects.register(
       this.state.$.pipe(
         switchMap((state) => {
