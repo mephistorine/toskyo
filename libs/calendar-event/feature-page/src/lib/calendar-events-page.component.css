@@ -1,0 +1,25 @@
+:host {
+  display: block;
+  padding: 1rem;
+}
+
+:host ::ng-deep .t-row {
+  justify-content: space-between !important;
+  height: 1.75rem !important;
+}
+
+:host ::ng-deep tui-primitive-calendar,
+tui-calendar {
+  width: auto;
+  height: auto;
+}
+
+:host ::ng-deep .t-cell::after {
+  display: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

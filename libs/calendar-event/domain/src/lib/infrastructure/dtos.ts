@@ -1,4 +1,4 @@
-export const TASK_DTO_FIELDS: readonly string[] = [
+export const CALENDAR_EVENT_DTO_FIELDS: readonly string[] = [
   "id",
   "created",
   "updated",
@@ -8,14 +8,14 @@ export const TASK_DTO_FIELDS: readonly string[] = [
   "creatorUserId",
   "assigneeUserId",
   "isRecurring",
-  "attributes.isCompleted",
-  "attributes.dueDate",
-  "attributes.parentTaskId"
+  "attributes.startDate",
+  "attributes.endDate",
+  "attributes.allDay"
 ]
 
-export type TaskDto = {
+export type CalendarEventDto = {
   id: string
-  type: "TASK"
+  type: "CALENDAR_EVENT"
   created: string
   updated: string
   title: string
@@ -25,8 +25,8 @@ export type TaskDto = {
   assigneeUserId: string
   isRecurring: boolean
   attributes: {
-    parentTaskId: string | null
-    isCompleted: boolean
-    dueDate: string
+    startDate: string
+    endDate: string | null
+    allDay: boolean
   }
 }

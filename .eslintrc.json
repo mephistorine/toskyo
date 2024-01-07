@@ -76,6 +76,13 @@
               {
                 "sourceTag": "domain:auth",
                 "onlyDependOnLibsWithTags": ["domain:auth", "domain:shared"]
+              },
+              {
+                "sourceTag": "domain:calendar-event",
+                "onlyDependOnLibsWithTags": [
+                  "domain:calendar-event",
+                  "domain:shared"
+                ]
               }
             ]
           }

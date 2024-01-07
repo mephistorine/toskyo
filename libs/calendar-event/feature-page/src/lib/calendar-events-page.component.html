@@ -1,0 +1,23 @@
+<header>
+  <h1>Events</h1>
+
+  <button
+    size="s"
+    tuiButton
+    (click)="onClickTodayButton()">
+    Today
+  </button>
+</header>
+
+<tui-calendar
+  [markerHandler]="calendarEvents | push | tuiMapper: getMarkerHandler"
+  [value]="selectedDate | push"
+  (dayClick)="onDayClick($event)" />
+
+<div>
+  @for (calendarEvent of calendarEventsByDay | push; track calendarEvent.id) {
+    <div>
+      {{ calendarEvent.title }}
+    </div>
+  }
+</div>
