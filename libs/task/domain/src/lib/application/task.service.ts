@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core"
 import {RxState} from "@rx-angular/state"
 import {EntityState, EntityStateController} from "shared/util-state"
 
-import { Task } from '../entities/task';
+import {Task} from "../entities/task"
 
 type TaskServiceState = EntityState<Task>
 

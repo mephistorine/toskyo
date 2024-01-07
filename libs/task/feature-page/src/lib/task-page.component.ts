@@ -1,5 +1,5 @@
 import {animate, style, transition, trigger} from "@angular/animations"
-import {ChangeDetectionStrategy, Component, OnInit} from "@angular/core"
+import {ChangeDetectionStrategy, Component, NgZone, OnInit} from "@angular/core"
 import {ActivatedRoute, Router} from "@angular/router"
 import {rxEffects} from "@rx-angular/state/effects"
 import {selectSlice} from "@rx-angular/state/selections"
@@ -56,10 +56,15 @@ export class TaskPageComponent implements OnInit {
     private router: Router,
     private taskService: TaskService,
     private taskApiService: TaskApiService,
-    private taskPageComponentStore: TaskPageComponentStore
+    private taskPageComponentStore: TaskPageComponentStore,
+    private ngZone: NgZone
   ) {
-    this.taskPageComponentStore.select().subscribe(console.log)
-    this.taskService.selectAll().subscribe(console.log)
+    this.effects.register(this.taskPageComponentStore.select(), (d) =>
+      console.log("taskPageComponentStore", d)
+    )
+    this.effects.register(this.taskService.selectAll(), (d) =>
+      console.log("taskService", d)
+    )
   }
 
   public ngOnInit(): void {
@@ -106,9 +111,11 @@ export class TaskPageComponent implements OnInit {
   }
 
   public onTaskContentClick(id: string): void {
-    this.router.navigate([], {
-      relativeTo: this.activatedRoute,
-      queryParams: objOf(OPENED_TASK_ID_PARAM_KEY, id)
+    this.ngZone.run(() => {
+      this.router.navigate([], {
+        relativeTo: this.activatedRoute,
+        queryParams: objOf(OPENED_TASK_ID_PARAM_KEY, id)
+      })
     })
   }
 
