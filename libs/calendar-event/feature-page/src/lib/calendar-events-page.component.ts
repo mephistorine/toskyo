@@ -13,10 +13,31 @@ import {
   CalendarEventApiService,
   CalendarEventService
 } from "calendar-event/domain"
-import {interval as dateFnsInterval, isWithinInterval} from "date-fns"
+import {CalendarEventCardComponent} from "calendar-event/ui-card"
+import {eachDayOfInterval, isEqual} from "date-fns"
 import {map, of, switchMap} from "rxjs"
 
 import {CalendarEventsPageComponentStore} from "./calendar-events-page-component.store"
+
+function isDayHasCalendarEvent(
+  day: Date,
+  calendarEvent: CalendarEvent
+): boolean {
+  const days: Date[] = []
+
+  if (calendarEvent.endDate === null) {
+    days.push(new Date(calendarEvent.startDate))
+  } else {
+    days.push(
+      ...eachDayOfInterval({
+        start: new Date(calendarEvent.startDate),
+        end: new Date(calendarEvent.endDate)
+      })
+    )
+  }
+
+  return days.some((d) => isEqual(d, day))
+}
 
 @Component({
   standalone: true,
@@ -28,7 +49,8 @@ import {CalendarEventsPageComponentStore} from "./calendar-events-page-component
     TuiCalendarModule,
     TuiButtonModule,
     RxPush,
-    TuiMapperPipeModule
+    TuiMapperPipeModule,
+    CalendarEventCardComponent
   ],
   providers: [CalendarEventsPageComponentStore],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -48,20 +70,9 @@ export class CalendarEventsPageComponent implements OnInit {
 
       return this.calendarEvents.pipe(
         map((calendarEvents) => {
-          return calendarEvents.filter((event) => {
-            if (event.endDate === null) {
-              return selectedDate.daySame(
-                TuiDay.fromLocalNativeDate(new Date(event.startDate))
-              )
-            }
-
-            const interval = dateFnsInterval(
-              new Date(event.startDate),
-              new Date(event.endDate)
-            )
-
-            return isWithinInterval(selectedDate.toLocalNativeDate(), interval)
-          })
+          return calendarEvents.filter((event) =>
+            isDayHasCalendarEvent(selectedDate.toLocalNativeDate(), event)
+          )
         })
       )
     })
@@ -89,23 +100,11 @@ export class CalendarEventsPageComponent implements OnInit {
 
   public getMarkerHandler(events: readonly CalendarEvent[]): TuiMarkerHandler {
     return (tuiDay: TuiDay) => {
-      const hasEvents =
-        events.filter((event) => {
-          if (event.endDate === null) {
-            return tuiDay.daySame(
-              TuiDay.fromLocalNativeDate(new Date(event.startDate))
-            )
-          }
-
-          const interval = dateFnsInterval(
-            new Date(event.startDate),
-            new Date(event.endDate)
-          )
-
-          return isWithinInterval(tuiDay.toLocalNativeDate(), interval)
-        }).length > 0
-
-      return hasEvents ? ["var(--tui-info-fill)"] : []
+      return events.some((event) =>
+        isDayHasCalendarEvent(tuiDay.toLocalNativeDate(), event)
+      )
+        ? ["var(--tui-info-fill)"]
+        : []
     }
   }
 

@@ -17,7 +17,7 @@
 <div>
   @for (calendarEvent of calendarEventsByDay | push; track calendarEvent.id) {
     <div>
-      {{ calendarEvent.title }}
+      <calendar-event-card [calendarEvent]="calendarEvent" />
     </div>
   }
 </div>

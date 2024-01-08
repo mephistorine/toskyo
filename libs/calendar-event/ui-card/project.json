@@ -1,0 +1,21 @@
+{
+  "name": "calendar-event-ui-card",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/calendar-event/ui-card/src",
+  "prefix": "calendar-event",
+  "tags": ["domain:calendar-event", "type:ui"],
+  "projectType": "library",
+  "targets": {
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/calendar-event/ui-card/jest.config.ts"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"]
+    }
+  }
+}
